@@ -75,7 +75,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5 },
     },
   };
 
@@ -130,7 +130,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
           <motion.div
             className="inline-block mb-6"
             animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
             <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(147,51,234,0.4)]">
               <Sparkles className="w-10 h-10 text-white" />
