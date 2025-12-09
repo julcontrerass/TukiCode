@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Home, Users, FolderGit2, Workflow, Sparkles, Layout } from 'lucide-react';
 import { Language } from '@/app/types';
 import { translations } from '@/app/constants/translations';
@@ -8,11 +9,23 @@ import Preloader from '@/app/components/ui/Preloader';
 import Navbar from '@/app/components/layout/Navbar';
 import Dock from '@/app/components/layout/Dock';
 import HeroSection from '@/app/sections/HeroSection';
-import AboutSection from '@/app/sections/AboutSection';
-import ServicesSection from '@/app/sections/ServicesSection';
-import ProjectsSection from '@/app/sections/ProjectsSection';
-import ProcessSection from '@/app/sections/ProcessSection';
-import ContactSection from '@/app/sections/ContactSection';
+
+// Lazy loading de secciones para reducir bundle inicial
+const AboutSection = dynamic(() => import('@/app/sections/AboutSection'), {
+  loading: () => <div className="min-h-screen bg-black" />,
+});
+const ServicesSection = dynamic(() => import('@/app/sections/ServicesSection'), {
+  loading: () => <div className="min-h-screen bg-black" />,
+});
+const ProjectsSection = dynamic(() => import('@/app/sections/ProjectsSection'), {
+  loading: () => <div className="min-h-screen bg-black" />,
+});
+const ProcessSection = dynamic(() => import('@/app/sections/ProcessSection'), {
+  loading: () => <div className="min-h-screen bg-black" />,
+});
+const ContactSection = dynamic(() => import('@/app/sections/ContactSection'), {
+  loading: () => <div className="min-h-screen bg-black" />,
+});
 
 export default function Page() {
   const [activeSection, setActiveSection] = useState('inicio');
@@ -24,7 +37,7 @@ export default function Page() {
     const timer = setTimeout(() => {
       setIsLoading(false);
       document.body.style.overflow = 'auto';
-    }, 2500);
+    }, 1800); // Reducido de 2500ms a 1800ms para mejorar FCP
     return () => clearTimeout(timer);
   }, []);
 

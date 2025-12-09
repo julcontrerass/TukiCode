@@ -57,6 +57,7 @@ export interface Translation {
     btn: string;
     p1: { title: string; desc: string };
     p2: { title: string; desc: string };
+    p3: { title: string; desc: string };
   };
   process: {
     title: string;

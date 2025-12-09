@@ -49,6 +49,10 @@ export const translations: Translations = {
       p2: {
         title: "JOUP LAB & STUDIO",
         desc: "Página web personalizada para barista emprendedor. Portfolio interactivo con diseño moderno y atractivo."
+      },
+      p3: {
+        title: "Grito de Carnaval",
+        desc: "Landing page dinámica para evento de carnaval. Diseño vibrante con HTML, CSS y JavaScript vanilla."
       }
     },
     process: {
@@ -112,6 +116,10 @@ export const translations: Translations = {
       p2: {
         title: "JOUP LAB & STUDIO",
         desc: "Custom website for barista entrepreneur. Interactive portfolio with modern and attractive design."
+      },
+      p3: {
+        title: "Grito de Carnaval",
+        desc: "Dynamic landing page for carnival event. Vibrant design with HTML, CSS and vanilla JavaScript."
       }
     },
     process: {
