@@ -55,7 +55,7 @@ export default function HeroSection({ t }: HeroSectionProps) {
     <section
       ref={sectionRef}
       id="inicio"
-      className="relative w-full h-screen flex flex-col items-center justify-start pt-32 md:pt-48 overflow-hidden"
+      className="relative w-full h-screen flex flex-col items-center justify-start pt-24 md:pt-32 overflow-hidden"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -63,13 +63,13 @@ export default function HeroSection({ t }: HeroSectionProps) {
         transition={{ delay: 1.9, duration: 0.6 }}
         className="z-20 text-center px-4 relative"
       >
-        <div className="inline-block px-4 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm font-medium mb-4 backdrop-blur-sm">
+        <div className="inline-block px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-xs md:text-sm font-medium mb-3 backdrop-blur-sm">
           {t.hero.tag}
         </div>
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-4 drop-shadow-xl text-white">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-3 drop-shadow-xl text-white">
           {t.hero.title}<span className="text-purple-500">CODE</span>
         </h1>
-        <p className="text-xl md:text-2xl text-gray-300 font-light max-w-xl mx-auto">
+        <p className="text-base md:text-xl text-gray-300 font-light max-w-lg mx-auto">
           {t.hero.subtitle}
         </p>
       </motion.div>

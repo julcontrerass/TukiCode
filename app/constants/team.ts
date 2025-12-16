@@ -11,7 +11,7 @@ export const team: TeamMember[] = [
     name: "Juan Ignacio Nemi",
     role: "Front End Developer",
     initials: "JN",
-    image: "/images/team/juan.png"
+    image: "/images/team/Juan.png"
   },
   {
     name: "Alejandro Madero",

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { Home, Users, FolderGit2, Workflow, Sparkles, Layout } from 'lucide-react';
+import { Home, Users, FolderCode, Workflow, Phone, Layout } from 'lucide-react';
 import { Language } from '@/app/types';
 import { translations } from '@/app/constants/translations';
 import Preloader from '@/app/components/ui/Preloader';
@@ -62,13 +62,13 @@ export default function Page() {
     { id: 'inicio', icon: <Home className="w-full h-full" />, label: t.nav.home, color: "text-purple-500", bgGlow: "bg-purple-500/20" },
     { id: 'nosotros', icon: <Users className="w-full h-full" />, label: t.nav.about, color: "text-blue-500", bgGlow: "bg-blue-500/20" },
     { id: 'servicios', icon: <Layout className="w-full h-full" />, label: t.nav.services, color: "text-pink-500", bgGlow: "bg-pink-500/20" },
-    { id: 'proyectos', icon: <FolderGit2 className="w-full h-full" />, label: t.nav.projects, color: "text-orange-500", bgGlow: "bg-orange-500/20" },
+    { id: 'proyectos', icon: <FolderCode className="w-full h-full" />, label: t.nav.projects, color: "text-orange-500", bgGlow: "bg-orange-500/20" },
     { id: 'proceso', icon: <Workflow className="w-full h-full" />, label: t.nav.process, color: "text-green-500", bgGlow: "bg-green-500/20" },
-    { id: 'contacto', icon: <Sparkles className="w-full h-full" />, label: t.nav.contact, color: "text-yellow-400", bgGlow: "bg-yellow-400/20" },
+    { id: 'contacto', icon: <Phone className="w-full h-full" />, label: t.nav.contact, color: "text-yellow-400", bgGlow: "bg-yellow-400/20" },
   ];
 
   return (
-    <main className="bg-black text-white font-sans overflow-x-hidden pb-32">
+    <main className="bg-black text-white font-sans overflow-x-hidden">
       <style jsx global>{`
         #spline-watermark {
           display: none !important;
