@@ -9,8 +9,8 @@ interface ServicesSectionProps {
 }
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
 const serviceIcons = [
@@ -51,13 +51,12 @@ export default function ServicesSection({ t }: ServicesSectionProps) {
           {t.services.cards.map((card, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
+              transition={{ delay: index * 0.05, duration: 0.3 }}
               className="bg-zinc-900/50 backdrop-blur-md border border-white/5 p-8 rounded-3xl group hover:border-purple-500/40 transition-all duration-300"
             >
-              <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-black/50">
+              <div className="w-14 h-14 bg-zinc-800 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-black/50">
                 {serviceIcons[index]}
               </div>
               <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">
@@ -87,7 +86,7 @@ export default function ServicesSection({ t }: ServicesSectionProps) {
             <motion.div
               className="flex gap-8 items-center w-max"
               animate={{ x: "-33.33%" }}
-              transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+              transition={{ duration: 40, ease: "linear", repeat: Infinity }}
             >
               {[...techStack, ...techStack, ...techStack].map((tech, i) => (
                 <div

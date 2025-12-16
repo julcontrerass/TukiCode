@@ -23,30 +23,12 @@ export default function HeroSection({ t }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Lazy load Spline solo cuando el usuario scrollea cerca de la sección
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoadSpline(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { rootMargin: '200px' } // Empieza a cargar 200px antes de que sea visible
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    // Para la primera carga, esperar al preloader
+    // Cargar Spline inmediatamente después del preloader (optimizado)
     const timer = setTimeout(() => {
       setShouldLoadSpline(true);
-    }, 1800);
+    }, 600); // Reducido significativamente
 
     return () => {
-      observer.disconnect();
       clearTimeout(timer);
     };
   }, []);
@@ -60,7 +42,7 @@ export default function HeroSection({ t }: HeroSectionProps) {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.9, duration: 0.6 }}
+        transition={{ delay: 0.7, duration: 0.5 }}
         className="z-20 text-center px-4 relative"
       >
         <div className="inline-block px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm md:text-sm font-medium mb-3 backdrop-blur-sm">

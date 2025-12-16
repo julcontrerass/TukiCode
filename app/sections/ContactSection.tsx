@@ -64,20 +64,56 @@ export default function ContactSection({ t }: ContactSectionProps) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.05,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.3 },
     },
   };
+
+  const infoCards = [
+    {
+      icon: Rocket,
+      title: 'Respuesta Rápida',
+      description: 'Te responderemos en menos de 24 horas',
+      gradient: 'from-purple-900/20 to-purple-900/5',
+      border: 'border-purple-500/20',
+      iconBg: 'bg-purple-500/20',
+      iconBorder: 'border-purple-500/40',
+      iconColor: 'text-purple-400',
+      hoverGradient: 'from-purple-500/5',
+    },
+    {
+      icon: Code2,
+      title: 'Presupuesto Gratis',
+      description: 'Sin compromiso, 100% transparente',
+      gradient: 'from-blue-900/20 to-blue-900/5',
+      border: 'border-blue-500/20',
+      iconBg: 'bg-blue-500/20',
+      iconBorder: 'border-blue-500/40',
+      iconColor: 'text-blue-400',
+      hoverGradient: 'from-blue-500/5',
+    },
+    {
+      icon: Sparkles,
+      title: 'Ideas Protegidas',
+      description: 'Tu proyecto es confidencial',
+      gradient: 'from-pink-900/20 to-pink-900/5',
+      border: 'border-pink-500/20',
+      iconBg: 'bg-pink-500/20',
+      iconBorder: 'border-pink-500/40',
+      iconColor: 'text-pink-400',
+      hoverGradient: 'from-pink-500/5',
+    },
+  ];
 
   return (
     <section id="contacto" className="h-screen max-h-screen py-4 md:py-8 pb-24 md:pb-8 bg-black flex flex-col items-center justify-center relative overflow-hidden">
@@ -99,80 +135,22 @@ export default function ContactSection({ t }: ContactSectionProps) {
           </p>
         </motion.div>
 
-        {/* Tarjetas de información - visible solo en móvil debajo del header */}
-        <motion.div className="md:hidden grid grid-cols-3 gap-2 mb-4" variants={itemVariants}>
-          <motion.div
-            whileHover={{ scale: 1.02, y: -4 }}
-            className="bg-gradient-to-br from-purple-900/20 to-purple-900/5 p-3 rounded-2xl border border-purple-500/20 backdrop-blur-sm relative overflow-hidden group flex flex-col items-center text-center"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mb-2 relative z-10 border border-purple-500/40">
-              <Rocket className="w-5 h-5 text-purple-400" />
-            </div>
-            <h3 className="text-xs font-bold text-white mb-1 relative z-10">Respuesta Rápida</h3>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ scale: 1.02, y: -4 }}
-            className="bg-gradient-to-br from-blue-900/20 to-blue-900/5 p-3 rounded-2xl border border-blue-500/20 backdrop-blur-sm relative overflow-hidden group flex flex-col items-center text-center"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-2 relative z-10 border border-blue-500/40">
-              <Code2 className="w-5 h-5 text-blue-400" />
-            </div>
-            <h3 className="text-xs font-bold text-white mb-1 relative z-10">Presupuesto Gratis</h3>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ scale: 1.02, y: -4 }}
-            className="bg-gradient-to-br from-pink-900/20 to-pink-900/5 p-3 rounded-2xl border border-pink-500/20 backdrop-blur-sm relative overflow-hidden group flex flex-col items-center text-center"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center mb-2 relative z-10 border border-pink-500/40">
-              <Sparkles className="w-5 h-5 text-pink-400" />
-            </div>
-            <h3 className="text-xs font-bold text-white mb-1 relative z-10">Ideas Protegidas</h3>
-          </motion.div>
-        </motion.div>
-
         <div className="grid md:grid-cols-5 gap-4 md:gap-6 items-start">
-          {/* Tarjetas de información lateral - visible solo en desktop */}
-          <motion.div className="hidden md:flex md:col-span-2 flex-col gap-3 order-2 md:order-1" variants={itemVariants}>
-            <motion.div
-              whileHover={{ scale: 1.02, y: -4 }}
-              className="bg-gradient-to-br from-purple-900/20 to-purple-900/5 p-4 rounded-2xl border border-purple-500/20 backdrop-blur-sm relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mb-2 relative z-10 border border-purple-500/40">
-                <Rocket className="w-5 h-5 text-purple-400" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-1 relative z-10">Respuesta Rápida</h3>
-              <p className="text-gray-400 text-xs relative z-10">Te responderemos en menos de 24 horas</p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02, y: -4 }}
-              className="bg-gradient-to-br from-blue-900/20 to-blue-900/5 p-4 rounded-2xl border border-blue-500/20 backdrop-blur-sm relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-2 relative z-10 border border-blue-500/40">
-                <Code2 className="w-5 h-5 text-blue-400" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-1 relative z-10">Presupuesto Gratis</h3>
-              <p className="text-gray-400 text-xs relative z-10">Sin compromiso, 100% transparente</p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02, y: -4 }}
-              className="bg-gradient-to-br from-pink-900/20 to-pink-900/5 p-4 rounded-2xl border border-pink-500/20 backdrop-blur-sm relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center mb-2 relative z-10 border border-pink-500/40">
-                <Sparkles className="w-5 h-5 text-pink-400" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-1 relative z-10">Ideas Protegidas</h3>
-              <p className="text-gray-400 text-xs relative z-10">Tu proyecto es confidencial</p>
-            </motion.div>
+          {/* Tarjetas de información - responsive (única versión) */}
+          <motion.div className="md:col-span-2 grid grid-cols-3 md:grid-cols-1 gap-2 md:gap-3 order-2 md:order-1" variants={itemVariants}>
+            {infoCards.map((card, idx) => (
+              <motion.div
+                key={idx}
+                className={`bg-gradient-to-br ${card.gradient} p-3 md:p-4 rounded-2xl border ${card.border} backdrop-blur-sm relative overflow-hidden group flex flex-col items-center md:items-start text-center md:text-left`}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${card.hoverGradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}></div>
+                <div className={`w-10 h-10 rounded-xl ${card.iconBg} flex items-center justify-center mb-2 relative z-10 border ${card.iconBorder}`}>
+                  <card.icon className={`w-5 h-5 ${card.iconColor}`} />
+                </div>
+                <h3 className="text-xs md:text-base font-bold text-white mb-0 md:mb-1 relative z-10">{card.title}</h3>
+                <p className="text-gray-400 text-xs relative z-10 hidden md:block">{card.description}</p>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Formulario principal */}

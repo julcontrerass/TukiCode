@@ -37,7 +37,7 @@ export default function Page() {
     const timer = setTimeout(() => {
       setIsLoading(false);
       document.body.style.overflow = 'auto';
-    }, 1800); // Reducido de 2500ms a 1800ms para mejorar FCP
+    }, 500); // Optimizado para mejor rendimiento
     return () => clearTimeout(timer);
   }, []);
 

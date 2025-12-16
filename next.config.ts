@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Optimizaciones de producción
   compress: true, // Habilita compresión gzip
+  poweredByHeader: false, // Elimina header X-Powered-By
 
   // Optimización de imágenes
   images: {
@@ -19,10 +20,13 @@ const nextConfig: NextConfig = {
     } : false,
   },
 
-  // Configuración para producción
+  // Configuración para producción - Optimizaciones de rendimiento
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', '@splinetool/react-spline'],
   },
+
+  // Optimización del servidor
+  reactStrictMode: true,
 
   // Headers de seguridad y performance
   async headers() {

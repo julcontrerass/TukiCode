@@ -11,8 +11,8 @@ interface AboutSectionProps {
 }
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
 export default function AboutSection({ t }: AboutSectionProps) {
@@ -29,8 +29,7 @@ export default function AboutSection({ t }: AboutSectionProps) {
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed font-light">{t.about.desc}</p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-          <motion.div
-            whileHover={{ y: -5 }}
+          <div
             className="bg-zinc-900/30 border border-zinc-800 p-8 rounded-3xl backdrop-blur-sm hover:border-blue-500/50 transition-colors relative overflow-hidden group"
           >
             <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 rounded-bl-full -mr-10 -mt-10 transition-all group-hover:bg-blue-500/20 blur-xl"></div>
@@ -41,9 +40,8 @@ export default function AboutSection({ t }: AboutSectionProps) {
               <h3 className="text-2xl font-bold">{t.about.missionTitle}</h3>
             </div>
             <p className="text-gray-400 relative z-10">{t.about.missionDesc}</p>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -5 }}
+          </div>
+          <div
             className="bg-zinc-900/30 border border-zinc-800 p-8 rounded-3xl backdrop-blur-sm hover:border-purple-500/50 transition-colors relative overflow-hidden group"
           >
             <div className="absolute top-0 right-0 w-40 h-40 bg-purple-500/10 rounded-bl-full -mr-10 -mt-10 transition-all group-hover:bg-purple-500/20 blur-xl"></div>
@@ -54,7 +52,7 @@ export default function AboutSection({ t }: AboutSectionProps) {
               <h3 className="text-2xl font-bold">{t.about.visionTitle}</h3>
             </div>
             <p className="text-gray-400 relative z-10">{t.about.visionDesc}</p>
-          </motion.div>
+          </div>
         </div>
         <div className="text-center">
           <h3 className="text-2xl font-bold mb-10 inline-block border-b-2 border-purple-500 pb-2 text-white">
