@@ -80,7 +80,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
   };
 
   return (
-    <section id="contacto" className="h-screen max-h-screen py-4 md:py-8 bg-black flex flex-col items-center justify-center relative overflow-hidden">
+    <section id="contacto" className="h-screen max-h-screen py-4 md:py-8 pb-24 md:pb-8 bg-black flex flex-col items-center justify-center relative overflow-hidden">
 
       <motion.div
         className="max-w-5xl mx-auto px-4 z-10 w-full h-full flex flex-col justify-center max-h-full overflow-y-auto"
@@ -94,17 +94,53 @@ export default function ContactSection({ t }: ContactSectionProps) {
           <h2 className="text-4xl md:text-6xl font-black mb-2 md:mb-3 text-white bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
             {t.contact.title}
           </h2>
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-4 md:mb-0">
             {t.contact.subtitle}
           </p>
         </motion.div>
 
+        {/* Tarjetas de información - visible solo en móvil debajo del header */}
+        <motion.div className="md:hidden grid grid-cols-3 gap-2 mb-4" variants={itemVariants}>
+          <motion.div
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="bg-gradient-to-br from-purple-900/20 to-purple-900/5 p-3 rounded-2xl border border-purple-500/20 backdrop-blur-sm relative overflow-hidden group flex flex-col items-center text-center"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mb-2 relative z-10 border border-purple-500/40">
+              <Rocket className="w-5 h-5 text-purple-400" />
+            </div>
+            <h3 className="text-xs font-bold text-white mb-1 relative z-10">Respuesta Rápida</h3>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="bg-gradient-to-br from-blue-900/20 to-blue-900/5 p-3 rounded-2xl border border-blue-500/20 backdrop-blur-sm relative overflow-hidden group flex flex-col items-center text-center"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-2 relative z-10 border border-blue-500/40">
+              <Code2 className="w-5 h-5 text-blue-400" />
+            </div>
+            <h3 className="text-xs font-bold text-white mb-1 relative z-10">Presupuesto Gratis</h3>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="bg-gradient-to-br from-pink-900/20 to-pink-900/5 p-3 rounded-2xl border border-pink-500/20 backdrop-blur-sm relative overflow-hidden group flex flex-col items-center text-center"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center mb-2 relative z-10 border border-pink-500/40">
+              <Sparkles className="w-5 h-5 text-pink-400" />
+            </div>
+            <h3 className="text-xs font-bold text-white mb-1 relative z-10">Ideas Protegidas</h3>
+          </motion.div>
+        </motion.div>
+
         <div className="grid md:grid-cols-5 gap-4 md:gap-6 items-start">
-          {/* Tarjetas de información lateral */}
-          <motion.div className="md:col-span-2 space-y-2 md:space-y-3 order-2 md:order-1" variants={itemVariants}>
+          {/* Tarjetas de información lateral - visible solo en desktop */}
+          <motion.div className="hidden md:flex md:col-span-2 flex-col gap-3 order-2 md:order-1" variants={itemVariants}>
             <motion.div
               whileHover={{ scale: 1.02, y: -4 }}
-              className="bg-gradient-to-br from-purple-900/20 to-purple-900/5 p-3 md:p-4 rounded-2xl border border-purple-500/20 backdrop-blur-sm relative overflow-hidden group"
+              className="bg-gradient-to-br from-purple-900/20 to-purple-900/5 p-4 rounded-2xl border border-purple-500/20 backdrop-blur-sm relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center mb-2 relative z-10 border border-purple-500/40">
@@ -116,7 +152,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
 
             <motion.div
               whileHover={{ scale: 1.02, y: -4 }}
-              className="bg-gradient-to-br from-blue-900/20 to-blue-900/5 p-3 md:p-4 rounded-2xl border border-blue-500/20 backdrop-blur-sm relative overflow-hidden group"
+              className="bg-gradient-to-br from-blue-900/20 to-blue-900/5 p-4 rounded-2xl border border-blue-500/20 backdrop-blur-sm relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center mb-2 relative z-10 border border-blue-500/40">
@@ -128,7 +164,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
 
             <motion.div
               whileHover={{ scale: 1.02, y: -4 }}
-              className="bg-gradient-to-br from-pink-900/20 to-pink-900/5 p-3 md:p-4 rounded-2xl border border-pink-500/20 backdrop-blur-sm relative overflow-hidden group"
+              className="bg-gradient-to-br from-pink-900/20 to-pink-900/5 p-4 rounded-2xl border border-pink-500/20 backdrop-blur-sm relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center mb-2 relative z-10 border border-pink-500/40">
@@ -143,7 +179,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
           <motion.form
             onSubmit={handleSubmit}
             variants={itemVariants}
-            className="md:col-span-3 p-4 md:p-6 rounded-[2rem] border-2 border-white/10 backdrop-blur-sm space-y-3 md:space-y-4 relative order-1 md:order-2"
+            className="md:col-span-3 p-4 md:p-6 rounded-[2rem] border-2 border-white/10 backdrop-blur-sm space-y-3 md:space-y-4 relative md:order-2"
           >
             <div className="relative space-y-3 md:space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
