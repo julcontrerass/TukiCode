@@ -44,7 +44,6 @@ export default function ContactSection({ t }: ContactSectionProps) {
         setTimeout(() => setSubmitStatus('idle'), 5000);
       }
     } catch (error) {
-      console.error('Error:', error);
       setSubmitStatus('error');
       setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
