@@ -20,6 +20,7 @@ interface HeroSectionProps {
 export default function HeroSection({ t }: HeroSectionProps) {
   const [shouldLoadSpline, setShouldLoadSpline] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [gyroActive, setGyroActive] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const splineRef = useRef<Application | null>(null);
 
@@ -65,35 +66,42 @@ export default function HeroSection({ t }: HeroSectionProps) {
 
   // Handle gyroscope on mobile
   useEffect(() => {
-    if (!isMobile || !splineRef.current) return;
+    if (!isMobile || !shouldLoadSpline) return;
 
-    let initialBeta = 0;
-    let initialGamma = 0;
-    let isInitialized = false;
+    let initialBeta: number | null = null;
+    let initialGamma: number | null = null;
 
     const handleOrientation = (event: DeviceOrientationEvent) => {
-      if (!splineRef.current) return;
+      const beta = event.beta;
+      const gamma = event.gamma;
 
-      const beta = event.beta || 0;   // Rotation around X axis (-180 to 180)
-      const gamma = event.gamma || 0; // Rotation around Y axis (-90 to 90)
-
-      // Initialize on first reading
-      if (!isInitialized) {
-        initialBeta = beta;
-        initialGamma = gamma;
-        isInitialized = true;
+      // Check if we have valid readings
+      if (beta === null || gamma === null) {
+        console.log('DeviceOrientation: null values', { beta, gamma });
         return;
       }
 
-      // Calculate relative movement
-      const deltaX = (gamma - initialGamma) * 0.5; // Horizontal movement
-      const deltaY = (beta - initialBeta) * 0.3;   // Vertical movement
+      // Initialize on first valid reading
+      if (initialBeta === null || initialGamma === null) {
+        initialBeta = beta;
+        initialGamma = gamma;
+        setGyroActive(true);
+        console.log('Gyroscope initialized:', { beta, gamma });
+        return;
+      }
+
+      // Check if Spline is loaded
+      if (!splineRef.current) return;
+
+      // Calculate relative movement from initial position
+      const deltaX = (gamma - initialGamma) * 0.5; // Horizontal tilt
+      const deltaY = (beta - initialBeta) * 0.3;   // Vertical tilt
 
       // Clamp values to reasonable ranges
       const clampedX = Math.max(-30, Math.min(30, deltaX));
       const clampedY = Math.max(-20, Math.min(20, deltaY));
 
-      // Update Spline camera position
+      // Update Spline camera rotation
       try {
         const camera = splineRef.current.findObjectByName('Camera');
         if (camera) {
@@ -101,35 +109,44 @@ export default function HeroSection({ t }: HeroSectionProps) {
           camera.rotation.x = -clampedY * (Math.PI / 180);
         }
       } catch (error) {
-        console.log('Spline camera control:', error);
+        console.error('Error updating camera:', error);
       }
     };
 
-    // Request permission for iOS 13+
-    const requestPermission = async () => {
+    // Register event listener
+    const registerListener = async () => {
+      console.log('Attempting to register gyroscope...', {
+        isMobile,
+        shouldLoadSpline,
+        hasDeviceOrientation: typeof DeviceOrientationEvent !== 'undefined'
+      });
+
+      // Check if permission is needed (iOS 13+)
       if (typeof DeviceOrientationEvent !== 'undefined' &&
           typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+        console.log('iOS: Requesting permission...');
         try {
           const permission = await (DeviceOrientationEvent as any).requestPermission();
+          console.log('iOS Permission result:', permission);
           if (permission === 'granted') {
-            window.addEventListener('deviceorientation', handleOrientation);
+            window.addEventListener('deviceorientation', handleOrientation, true);
+            console.log('iOS: Listener registered');
           }
         } catch (error) {
-          console.log('Permission denied:', error);
+          console.error('iOS Permission denied:', error);
         }
       } else {
-        // Non-iOS or older iOS
-        window.addEventListener('deviceorientation', handleOrientation);
+        // Android and older iOS - no permission needed
+        console.log('Android/Old iOS: Registering listener directly...');
+        window.addEventListener('deviceorientation', handleOrientation, true);
+        console.log('Android: Listener registered');
       }
     };
 
-    // Auto-request on mobile
-    if (shouldLoadSpline) {
-      requestPermission();
-    }
+    registerListener();
 
     return () => {
-      window.removeEventListener('deviceorientation', handleOrientation);
+      window.removeEventListener('deviceorientation', handleOrientation, true);
     };
   }, [isMobile, shouldLoadSpline]);
 
@@ -179,6 +196,13 @@ export default function HeroSection({ t }: HeroSectionProps) {
       </div>
 
       <div className="absolute bottom-0 w-full h-40 bg-gradient-to-t from-black via-black/90 to-transparent z-10 pointer-events-none"></div>
+
+      {/* Gyroscope indicator (debug) */}
+      {isMobile && gyroActive && (
+        <div className="absolute bottom-4 right-4 z-30 bg-green-500/20 border border-green-500/50 rounded-full px-3 py-1 text-xs text-green-300 backdrop-blur-sm">
+          📱 Giroscopio activo
+        </div>
+      )}
     </section>
   );
 }
