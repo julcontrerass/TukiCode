@@ -33,7 +33,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      await response.json();
 
       if (response.ok) {
         setSubmitStatus('success');
@@ -75,7 +75,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.2, ease: "easeOut" },
+      transition: { duration: 0.2 },
     },
   };
 

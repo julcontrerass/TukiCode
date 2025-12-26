@@ -20,7 +20,6 @@ interface HeroSectionProps {
 export default function HeroSection({ t }: HeroSectionProps) {
   const [shouldLoadSpline, setShouldLoadSpline] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [permissionGranted, setPermissionGranted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const splineRef = useRef<Application | null>(null);
 
@@ -113,7 +112,6 @@ export default function HeroSection({ t }: HeroSectionProps) {
         try {
           const permission = await (DeviceOrientationEvent as any).requestPermission();
           if (permission === 'granted') {
-            setPermissionGranted(true);
             window.addEventListener('deviceorientation', handleOrientation);
           }
         } catch (error) {
@@ -121,7 +119,6 @@ export default function HeroSection({ t }: HeroSectionProps) {
         }
       } else {
         // Non-iOS or older iOS
-        setPermissionGranted(true);
         window.addEventListener('deviceorientation', handleOrientation);
       }
     };
@@ -139,11 +136,7 @@ export default function HeroSection({ t }: HeroSectionProps) {
   // Handle Spline load
   const onSplineLoad = (spline: Application) => {
     splineRef.current = spline;
-
-    // Disable mouse events on mobile
-    if (isMobile) {
-      spline.setMouseInteractionEnabled(false);
-    }
+    // Note: Mouse interaction control is handled by gyroscope on mobile
   };
 
   return (
