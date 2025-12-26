@@ -1,7 +1,7 @@
-'use client';
+
 
 import { motion } from 'framer-motion';
-import { NavItem } from '@/app/types';
+import { NavItem } from '@/types';
 
 interface DockProps {
   navItems: NavItem[];

@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Font variables (replaces next/font variable injection) */
+  --font-geist-sans: 'Geist Sans', system-ui, -apple-system, sans-serif;
+  --font-geist-mono: 'Geist Mono', ui-monospace, 'Cascadia Code', monospace;
+}
+
+/* Modo Oscuro Manual */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-geist-sans);
+  color: var(--foreground);
+  background: var(--background);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide Spline watermark */
+#spline-watermark {
+  display: none !important;
+}
+
+canvas {
+  outline: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: black;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Optimize animations with GPU acceleration */
+[class*="motion-"] {
+  will-change: transform, opacity;
+}
+
+/* Optimize form inputs */
+input, textarea, button {
+  will-change: auto;
+}
+
+input:focus, textarea:focus {
+  will-change: border-color, box-shadow;
+}
+
+/* Remove will-change after animation completes to free resources */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Contact form animations - moved from ContactSection for better performance */
+@keyframes fly {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(15px, -8px) rotate(5deg);
+  }
+  50% {
+    transform: translate(30px, -3px) rotate(-2deg);
+  }
+  75% {
+    transform: translate(15px, 8px) rotate(-5deg);
+  }
+}
+
+@keyframes trail {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(-40px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}

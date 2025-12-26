@@ -1,8 +1,8 @@
-'use client';
+
 
 import { motion } from 'framer-motion';
 import { Languages } from 'lucide-react';
-import { Language } from '@/app/types';
+import { Language } from '@/types';
 
 interface NavbarProps {
   lang: Language;

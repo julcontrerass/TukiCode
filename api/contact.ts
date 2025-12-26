@@ -1,43 +1,44 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import { Resend } from 'resend';
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { name, email, message } = body;
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-    // Validación básica
+  try {
+    const { name, email, message } = req.body;
+
+    // Basic validation
     if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: 'Todos los campos son requeridos' },
-        { status: 400 }
-      );
+      return res.status(400).json({
+        error: 'Todos los campos son requeridos'
+      });
     }
 
-    // Validación de email
+    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Email inválido' },
-        { status: 400 }
-      );
+      return res.status(400).json({
+        error: 'Email inválido'
+      });
     }
 
-    // Verificar que la API key esté configurada
+    // Verify API key is configured
     if (!process.env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY no está configurada');
-      return NextResponse.json(
-        { error: 'Servicio de email no configurado' },
-        { status: 500 }
-      );
+      return res.status(500).json({
+        error: 'Servicio de email no configurado'
+      });
     }
 
-    // Inicializar Resend
+    // Initialize Resend
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // Enviar email usando Resend
+    // Send email using Resend
     const data = await resend.emails.send({
-      from: 'TukiCode <onboarding@resend.dev>', // Cambia esto cuando tengas dominio verificado
+      from: 'TukiCode <onboarding@resend.dev>',
       to: ['jjulian.contrerass@gmail.com'],
       replyTo: email,
       subject: `Nuevo mensaje de ${name} - TukiCode`,
@@ -116,15 +117,14 @@ export async function POST(request: NextRequest) {
       `,
     });
 
-    return NextResponse.json(
-      { message: 'Email enviado exitosamente', data },
-      { status: 200 }
-    );
+    return res.status(200).json({
+      message: 'Email enviado exitosamente',
+      data
+    });
   } catch (error) {
     console.error('Error al enviar email:', error);
-    return NextResponse.json(
-      { error: 'Error al enviar el mensaje. Por favor intenta de nuevo.' },
-      { status: 500 }
-    );
+    return res.status(500).json({
+      error: 'Error al enviar el mensaje. Por favor intenta de nuevo.'
+    });
   }
 }

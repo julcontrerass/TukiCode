@@ -1,8 +1,8 @@
-'use client';
+
 
 import { motion } from 'framer-motion';
 import { BrainCircuit, Layers, Code2, Gauge, CheckCircle2 } from 'lucide-react';
-import { Translation } from '@/app/types';
+import { Translation } from '@/types';
 
 interface ProcessSectionProps {
   t: Translation;
@@ -27,6 +27,7 @@ export default function ProcessSection({ t }: ProcessSectionProps) {
         <motion.div
           initial="hidden"
           whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
           variants={fadeInUp}
           className="text-center mb-16"
         >
@@ -41,7 +42,8 @@ export default function ProcessSection({ t }: ProcessSectionProps) {
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ margin: "-100px" }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 className={`relative flex flex-col md:flex-row gap-8 md:gap-16 ${
                   index % 2 === 0 ? 'md:flex-row-reverse' : ''
                 }`}

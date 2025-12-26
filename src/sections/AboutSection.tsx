@@ -1,10 +1,10 @@
-'use client';
+
 
 import { motion } from 'framer-motion';
 import { Target, Telescope } from 'lucide-react';
-import { Translation } from '@/app/types';
-import { team } from '@/app/constants/team';
-import TeamCard from '@/app/components/ui/TeamCard';
+import { Translation } from '@/types';
+import { team } from '@/constants/team';
+import TeamCard from '@/components/ui/TeamCard';
 
 interface AboutSectionProps {
   t: Translation;

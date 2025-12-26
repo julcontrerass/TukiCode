@@ -1,8 +1,8 @@
-'use client';
+
 
 import { motion } from 'framer-motion';
 import { Globe, ShoppingCart, Database, Code2, Terminal, Cloud, Layers, PenTool, Layout, Smartphone } from 'lucide-react';
-import { Translation } from '@/app/types';
+import { Translation } from '@/types';
 
 interface ServicesSectionProps {
   t: Translation;

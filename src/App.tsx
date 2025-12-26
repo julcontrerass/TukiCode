@@ -1,33 +1,25 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Home, Users, FolderCode, Workflow, Phone, Layout } from 'lucide-react';
-import { Language } from '@/app/types';
-import { translations } from '@/app/constants/translations';
-import Preloader from '@/app/components/ui/Preloader';
-import Navbar from '@/app/components/layout/Navbar';
-import Dock from '@/app/components/layout/Dock';
-import HeroSection from '@/app/sections/HeroSection';
+import { Language } from '@/types';
+import { translations } from '@/constants/translations';
+import Preloader from '@/components/ui/Preloader';
+import Navbar from '@/components/layout/Navbar';
+import Dock from '@/components/layout/Dock';
+import HeroSection from '@/sections/HeroSection';
 
-// Lazy loading de secciones para reducir bundle inicial
-const AboutSection = dynamic(() => import('@/app/sections/AboutSection'), {
-  loading: () => <div className="min-h-screen bg-black" />,
-});
-const ServicesSection = dynamic(() => import('@/app/sections/ServicesSection'), {
-  loading: () => <div className="min-h-screen bg-black" />,
-});
-const ProjectsSection = dynamic(() => import('@/app/sections/ProjectsSection'), {
-  loading: () => <div className="min-h-screen bg-black" />,
-});
-const ProcessSection = dynamic(() => import('@/app/sections/ProcessSection'), {
-  loading: () => <div className="min-h-screen bg-black" />,
-});
-const ContactSection = dynamic(() => import('@/app/sections/ContactSection'), {
-  loading: () => <div className="min-h-screen bg-black" />,
-});
+// Lazy loading with React.lazy - Only lazy load the first sections
+const AboutSection = lazy(() => import('@/sections/AboutSection'));
+const ServicesSection = lazy(() => import('@/sections/ServicesSection'));
+const ProjectsSection = lazy(() => import('@/sections/ProjectsSection'));
 
-export default function Page() {
+// Eager load ProcessSection and ContactSection for better performance
+import ProcessSection from '@/sections/ProcessSection';
+import ContactSection from '@/sections/ContactSection';
+
+// Loading fallback component
+const SectionLoader = () => <div className="min-h-screen bg-black" />;
+
+export default function App() {
   const [activeSection, setActiveSection] = useState('inicio');
   const [lang, setLang] = useState<Language>('es');
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +29,7 @@ export default function Page() {
     const timer = setTimeout(() => {
       setIsLoading(false);
       document.body.style.overflow = 'auto';
-    }, 500); // Optimizado para mejor rendimiento
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -45,17 +37,31 @@ export default function Page() {
 
   useEffect(() => {
     if (isLoading) return;
+
+    // Optimize Intersection Observer with rootMargin and lower threshold
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          if (entry.isIntersecting) {
+            // Use requestAnimationFrame to batch DOM updates
+            requestAnimationFrame(() => {
+              setActiveSection(entry.target.id);
+            });
+          }
         });
       },
-      { threshold: 0.3 }
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -20% 0px' // Trigger slightly before entering viewport
+      }
     );
+
     const sections = document.querySelectorAll("section");
     sections.forEach((section) => observer.observe(section));
-    return () => sections.forEach((section) => observer.unobserve(section));
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+      observer.disconnect();
+    };
   }, [isLoading]);
 
   const navItems = [
@@ -69,7 +75,7 @@ export default function Page() {
 
   return (
     <main className="bg-black text-white font-sans overflow-x-hidden">
-      <style jsx global>{`
+      <style>{`
         #spline-watermark {
           display: none !important;
         }
@@ -80,11 +86,6 @@ export default function Page() {
           scroll-behavior: smooth;
           background: black;
         }
-        /* Ocultar icono flotante de Next.js */
-        #__next-build-watcher,
-        nextjs-portal {
-          display: none !important;
-        }
       `}</style>
 
       <Preloader isLoading={isLoading} />
@@ -92,9 +93,19 @@ export default function Page() {
       <Dock navItems={navItems} activeSection={activeSection} setActiveSection={setActiveSection} />
 
       <HeroSection t={t} />
-      <AboutSection t={t} />
-      <ServicesSection t={t} />
-      <ProjectsSection t={t} />
+
+      <Suspense fallback={<SectionLoader />}>
+        <AboutSection t={t} />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <ServicesSection t={t} />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <ProjectsSection t={t} />
+      </Suspense>
+
       <ProcessSection t={t} />
       <ContactSection t={t} />
     </main>

@@ -1,8 +1,8 @@
-'use client';
+
 
 import { motion } from 'framer-motion';
 import { Send, MessageCircle, Mail, User, Sparkles, Code2, Rocket } from 'lucide-react';
-import { Translation } from '@/app/types';
+import { Translation } from '@/types';
 import { useState } from 'react';
 
 interface ContactSectionProps {
@@ -64,8 +64,8 @@ export default function ContactSection({ t }: ContactSectionProps) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.1,
+        staggerChildren: 0.03,
+        delayChildren: 0,
       },
     },
   };
@@ -75,7 +75,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.3 },
+      transition: { duration: 0.2, ease: "easeOut" },
     },
   };
 
@@ -280,39 +280,6 @@ export default function ContactSection({ t }: ContactSectionProps) {
                   )}
                 </div>
               </motion.button>
-
-              {/* Estilos de animación */}
-              <style jsx>{`
-                @keyframes fly {
-                  0%, 100% {
-                    transform: translate(0, 0) rotate(0deg);
-                  }
-                  25% {
-                    transform: translate(15px, -8px) rotate(5deg);
-                  }
-                  50% {
-                    transform: translate(30px, -3px) rotate(-2deg);
-                  }
-                  75% {
-                    transform: translate(15px, 8px) rotate(-5deg);
-                  }
-                }
-                @keyframes trail {
-                  0% {
-                    transform: translateX(0) scale(1);
-                    opacity: 0.6;
-                  }
-                  100% {
-                    transform: translateX(-40px) scale(0);
-                    opacity: 0;
-                  }
-                }
-                @keyframes shake {
-                  0%, 100% { transform: translateX(0); }
-                  25% { transform: translateX(-5px); }
-                  75% { transform: translateX(5px); }
-                }
-              `}</style>
 
               {/* Botón WhatsApp */}
               <div className="relative">

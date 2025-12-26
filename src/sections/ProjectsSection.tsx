@@ -1,8 +1,5 @@
-'use client';
-
 import { ExternalLink } from 'lucide-react';
-import Image from 'next/image';
-import { Translation } from '@/app/types';
+import { Translation } from '@/types';
 
 interface ProjectsSectionProps {
   t: Translation;
@@ -17,13 +14,19 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
           <p className="text-gray-400 text-lg">{t.projects.subtitle}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Project 1 */}
           <div className="group relative aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-purple-500/50 transition-all">
-            <Image
-              src="/images/Proyectos/Tuki.png"
-              alt={t.projects.p1.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-            />
+            <picture>
+              <source srcSet="/images/Proyectos/Tuki.png?format=avif" type="image/avif" />
+              <source srcSet="/images/Proyectos/Tuki.png?format=webp" type="image/webp" />
+              <img
+                src="/images/Proyectos/Tuki.png"
+                alt={t.projects.p1.title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/60 to-black/80 z-10 group-hover:from-purple-900/70 group-hover:to-black/90 transition-all"></div>
             <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
               <h3 className="text-3xl font-bold mb-2 translate-y-2 group-hover:translate-y-0 transition-transform text-white">
@@ -39,18 +42,25 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
               </div>
             </div>
           </div>
+
+          {/* Project 2 */}
           <a
             href="https://joup-lab-studio.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-blue-500/50 transition-all cursor-pointer"
           >
-            <Image
-              src="/images/Proyectos/joup.png"
-              alt={t.projects.p2.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-            />
+            <picture>
+              <source srcSet="/images/Proyectos/joup.png?format=avif" type="image/avif" />
+              <source srcSet="/images/Proyectos/joup.png?format=webp" type="image/webp" />
+              <img
+                src="/images/Proyectos/joup.png"
+                alt={t.projects.p2.title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 to-black/80 z-10 group-hover:from-blue-900/70 group-hover:to-black/90 transition-all"></div>
             <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
               <div className="bg-white/10 backdrop-blur-sm p-2 rounded-full border border-white/20">
@@ -71,18 +81,25 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
               </div>
             </div>
           </a>
+
+          {/* Project 3 */}
           <a
             href="https://gritodecarnaval.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500/50 transition-all cursor-pointer"
           >
-            <Image
-              src="/images/Proyectos/GritoCarnaval.png"
-              alt={t.projects.p3.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-            />
+            <picture>
+              <source srcSet="/images/Proyectos/GritoCarnaval.png?format=avif" type="image/avif" />
+              <source srcSet="/images/Proyectos/GritoCarnaval.png?format=webp" type="image/webp" />
+              <img
+                src="/images/Proyectos/GritoCarnaval.png"
+                alt={t.projects.p3.title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-br from-orange-900/60 to-black/80 z-10 group-hover:from-orange-900/70 group-hover:to-black/90 transition-all"></div>
             <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
               <div className="bg-white/10 backdrop-blur-sm p-2 rounded-full border border-white/20">
