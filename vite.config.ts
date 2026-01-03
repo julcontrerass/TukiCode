@@ -49,7 +49,6 @@ export default defineConfig({
         manualChunks: {
           'vendor-react': ['react', 'react-dom'],
           'vendor-animation': ['framer-motion'],
-          'vendor-spline': ['@splinetool/react-spline'],
           'vendor-icons': ['lucide-react'],
         },
       },

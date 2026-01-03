@@ -76,9 +76,6 @@ export default function App() {
   return (
     <main className="bg-black text-white font-sans overflow-x-hidden">
       <style>{`
-        #spline-watermark {
-          display: none !important;
-        }
         canvas {
           outline: none;
         }
