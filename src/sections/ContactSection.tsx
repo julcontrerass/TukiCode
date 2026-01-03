@@ -115,7 +115,7 @@ export default function ContactSection({ t }: ContactSectionProps) {
   ];
 
   return (
-    <section id="contacto" className="h-screen max-h-screen py-4 md:py-8 pb-24 md:pb-8 bg-black flex flex-col items-center justify-center relative overflow-hidden">
+    <section id="contacto" className="h-screen max-h-screen pt-20 md:pt-8 pb-24 md:pb-8 bg-black flex flex-col items-center justify-center relative overflow-hidden">
 
       <motion.div
         className="max-w-5xl mx-auto px-4 z-10 w-full h-full flex flex-col justify-center max-h-full overflow-y-auto"
