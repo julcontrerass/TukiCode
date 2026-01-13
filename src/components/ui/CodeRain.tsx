@@ -40,11 +40,11 @@ export default function CodeRain() {
     const dropCount = 25;
     const columnWidth = canvas.width / dropCount;
 
-    drops.current = Array.from({ length: dropCount }, (_, i) => ({
+    drops.current = Array.from<unknown, CodeDrop>({ length: dropCount }, (_, i) => ({
       x: i * columnWidth + columnWidth / 2,
       y: Math.random() * -canvas.height,
       speed: Math.random() * 2 + 1,
-      characters: Array.from({ length: 8 }, () =>
+      characters: Array.from<unknown, string>({ length: 8 }, () =>
         codeSymbols[Math.floor(Math.random() * codeSymbols.length)]
       ),
       opacity: Math.random() * 0.3 + 0.1
@@ -66,7 +66,7 @@ export default function CodeRain() {
         if (drop.y > canvas.height + 100) {
           drop.y = -100;
           drop.x = index * columnWidth + columnWidth / 2;
-          drop.characters = Array.from({ length: 8 }, () =>
+          drop.characters = Array.from<unknown, string>({ length: 8 }, () =>
             codeSymbols[Math.floor(Math.random() * codeSymbols.length)]
           );
         }
