@@ -31,8 +31,13 @@ export default function ProcessSection({ t }: ProcessSectionProps) {
           variants={fadeInUp}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">{t.process.title}</h2>
-          <p className="text-gray-400">{t.process.subtitle}</p>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 text-white">
+            {t.process.title}{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+              {t.process.subtitle}
+            </span>
+          </h2>
+          <p className="text-gray-400">{t.process.desc}</p>
         </motion.div>
         <div className="relative">
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-zinc-800 to-zinc-800 md:left-1/2 md:-ml-[1px]"></div>

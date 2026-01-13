@@ -1,42 +1,23 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { Home, Users, FolderCode, Workflow, Phone, Layout } from 'lucide-react';
 import { Language } from '@/types';
 import { translations } from '@/constants/translations';
-import Preloader from '@/components/ui/Preloader';
 import Navbar from '@/components/layout/Navbar';
 import Dock from '@/components/layout/Dock';
 import HeroSection from '@/sections/HeroSection';
-
-// Lazy loading with React.lazy - Only lazy load the first sections
-const AboutSection = lazy(() => import('@/sections/AboutSection'));
-const ServicesSection = lazy(() => import('@/sections/ServicesSection'));
-const ProjectsSection = lazy(() => import('@/sections/ProjectsSection'));
-
-// Eager load ProcessSection and ContactSection for better performance
+import AboutSection from '@/sections/AboutSection';
+import ServicesSection from '@/sections/ServicesSection';
+import ProjectsSection from '@/sections/ProjectsSection';
 import ProcessSection from '@/sections/ProcessSection';
 import ContactSection from '@/sections/ContactSection';
-
-// Loading fallback component
-const SectionLoader = () => <div className="min-h-screen bg-black" />;
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('inicio');
   const [lang, setLang] = useState<Language>('es');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      document.body.style.overflow = 'auto';
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const t = translations[lang];
 
   useEffect(() => {
-    if (isLoading) return;
 
     // Optimize Intersection Observer with rootMargin and lower threshold
     const observer = new IntersectionObserver(
@@ -62,7 +43,7 @@ export default function App() {
       sections.forEach((section) => observer.unobserve(section));
       observer.disconnect();
     };
-  }, [isLoading]);
+  }, []);
 
   const navItems = [
     { id: 'inicio', icon: <Home className="w-full h-full" />, label: t.nav.home, color: "text-purple-500", bgGlow: "bg-purple-500/20" },
@@ -85,24 +66,13 @@ export default function App() {
         }
       `}</style>
 
-      <Preloader isLoading={isLoading} />
       <Navbar lang={lang} setLang={setLang} />
       <Dock navItems={navItems} activeSection={activeSection} setActiveSection={setActiveSection} />
 
       <HeroSection t={t} />
-
-      <Suspense fallback={<SectionLoader />}>
-        <AboutSection t={t} />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <ServicesSection t={t} />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <ProjectsSection t={t} />
-      </Suspense>
-
+      <AboutSection t={t} />
+      <ServicesSection t={t} />
+      <ProjectsSection t={t} />
       <ProcessSection t={t} />
       <ContactSection t={t} />
     </main>

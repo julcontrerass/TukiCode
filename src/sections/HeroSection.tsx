@@ -1,158 +1,75 @@
-import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Translation } from '@/types';
+import InteractiveBackground from '@/components/ui/InteractiveBackground';
+import CodeRain from '@/components/ui/CodeRain';
 
 interface HeroSectionProps {
   t: Translation;
 }
 
 export default function HeroSection({ t }: HeroSectionProps) {
-  const [isMounted, setIsMounted] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-
-  // Textos para la animación
-  const rotatingTexts = ["Tu idea en la web", "Tu visión, nuestro código", "Innovación en cada línea"];
-
-  // Mouse position tracking
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Smooth spring animations para el mouse
-  const springConfig = { damping: 25, stiffness: 100 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-
-  useEffect(() => {
-    setIsMounted(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-
-      // Normalizar a -1 a 1
-      const x = (clientX / innerWidth - 0.5) * 2;
-      const y = (clientY / innerHeight - 0.5) * 2;
-
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
 
   // Ciclo de textos
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % rotatingTexts.length);
+      setCurrentTextIndex((prev) => (prev + 1) % t.hero.rotatingTexts.length);
     }, 3000); // Cambia cada 3 segundos
 
     return () => clearInterval(interval);
-  }, [rotatingTexts.length]);
+  }, [t.hero.rotatingTexts.length]);
 
   return (
     <section
       id="inicio"
-      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-black"
     >
-      {/* Gradiente animado de fondo */}
+      {/* Background Layers */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Gradiente principal - se mueve con el mouse */}
-        <motion.div
-          className="absolute inset-0 opacity-60"
-          style={{
-            x: isMounted ? smoothMouseX : 0,
-            y: isMounted ? smoothMouseY : 0,
-          }}
-          animate={{
-            background: [
-              'radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 50% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)',
-            ],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black" />
 
-        {/* Blur overlay */}
-        <div className="absolute inset-0 backdrop-blur-3xl" />
+        {/* Code Rain Effect */}
+        <CodeRain />
 
-        {/* Orbes flotantes - Interactivos con el mouse */}
+        {/* Interactive Particle Network */}
+        <InteractiveBackground />
+
+        {/* Animated gradient orbs */}
         <motion.div
-          className="absolute w-96 h-96 rounded-full bg-purple-500/20 blur-3xl"
-          style={{
-            top: '20%',
-            left: '-10%',
-            x: isMounted ? smoothMouseX : 0,
-            y: isMounted ? smoothMouseY : 0,
-          }}
+          className="absolute w-96 h-96 rounded-full bg-purple-500/30 blur-3xl"
           animate={{
             x: ['-25%', '125%'],
             y: ['0%', '50%', '0%'],
+            scale: [1, 1.2, 1],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
             ease: 'linear',
           }}
+          style={{ top: '10%', left: '-10%' }}
         />
         <motion.div
-          className="absolute w-96 h-96 rounded-full bg-blue-500/20 blur-3xl"
-          style={{
-            top: '40%',
-            right: '-10%',
-            x: isMounted ? smoothMouseX : 0,
-            y: isMounted ? smoothMouseY : 0,
-          }}
+          className="absolute w-96 h-96 rounded-full bg-pink-500/20 blur-3xl"
           animate={{
             x: ['125%', '-25%'],
             y: ['50%', '0%', '50%'],
+            scale: [1.2, 1, 1.2],
           }}
           transition={{
             duration: 25,
             repeat: Infinity,
             ease: 'linear',
           }}
-        />
-        <motion.div
-          className="absolute w-80 h-80 rounded-full bg-indigo-500/15 blur-3xl"
-          style={{
-            bottom: '10%',
-            left: '30%',
-            x: isMounted ? smoothMouseX : 0,
-            y: isMounted ? smoothMouseY : 0,
-          }}
-          animate={{
-            x: ['0%', '100%', '0%'],
-            y: ['100%', '0%', '100%'],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          style={{ top: '40%', right: '-10%' }}
         />
 
-        {/* Spotlight que sigue el cursor */}
-        {isMounted && (
-          <motion.div
-            className="absolute w-96 h-96 rounded-full pointer-events-none"
-            style={{
-              background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
-              x: smoothMouseX,
-              y: smoothMouseY,
-              left: '50%',
-              top: '50%',
-              translateX: '-50%',
-              translateY: '-50%',
-            }}
-          />
-        )}
+        {/* Noise texture overlay */}
+        <div className="absolute inset-0 opacity-[0.015] mix-blend-overlay">
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        </div>
       </div>
 
       {/* Contenido */}
@@ -195,7 +112,7 @@ export default function HeroSection({ t }: HeroSectionProps) {
               transition={{ duration: 0.5, ease: "easeInOut" }}
               className="text-xl md:text-3xl text-gray-300 font-light absolute"
             >
-              {rotatingTexts[currentTextIndex]}
+              {t.hero.rotatingTexts[currentTextIndex]}
             </motion.p>
           </AnimatePresence>
         </div>

@@ -2,11 +2,17 @@ import { Translations } from '@/types';
 
 export const translations: Translations = {
   es: {
-    hero: { tag: "Estudio de Desarrollo de Software", title: "TUKI", subtitle: "Transforma el futuro digital" },
+    hero: {
+      tag: "Estudio de Desarrollo de Software",
+      title: "TUKI",
+      subtitle: "Transforma el futuro digital",
+      rotatingTexts: ["Tu idea en la web", "Tu visión, nuestro código", "Innovación en cada línea"]
+    },
     nav: { home: "Inicio", about: "Nosotros", services: "Servicios", projects: "Proyectos", process: "Workflow", contact: "Cotizar" },
 
     about: {
-      title: "Sobre Nosotros",
+      title: "Sobre",
+      subtitle: "Nosotros",
       desc: "En TukiCode, creemos que la tecnología debe ser accesible para todos. Somos un equipo de desarrolladores y creativos apasionados por materializar ideas. No importa si eres un emprendedor soñador, un creador de contenido o alguien con una visión única; nosotros escribimos el código para que tú te enfoques en tu sueño.",
       missionTitle: "Nuestra Misión",
       missionDesc: "Derribar las barreras técnicas. Queremos que cualquier persona, sin importar su presupuesto o conocimientos técnicos, tenga acceso a un desarrollo de software de calidad profesional para lanzar su proyecto al mundo.",
@@ -39,8 +45,9 @@ export const translations: Translations = {
       techTitle: "Arsenal Tecnológico"
     },
     projects: {
-      title: "Portafolio",
-      subtitle: "Proyectos que hemos desarrollado para nuestros clientes",
+      title: "",
+      subtitle: "Portafolio",
+      desc: "Proyectos que hemos desarrollado para nuestros clientes",
       btn: "Ver GitHub",
       p1: {
         title: "Tuki Asistente de Salón",
@@ -56,8 +63,9 @@ export const translations: Translations = {
       }
     },
     process: {
-      title: "Workflow de Desarrollo",
-      subtitle: "Un camino claro y transparente desde tu idea hasta el lanzamiento.",
+      title: "Workflow de",
+      subtitle: "Desarrollo",
+      desc: "Un camino claro y transparente desde tu idea hasta el lanzamiento.",
       steps: [
         { title: "Escucha & Estrategia", desc: "Nos sentamos contigo a entender tu idea a fondo. Definimos qué necesitas realmente para empezar y trazamos el plan.", deliverable: "Plan de Trabajo" },
         { title: "Diseño Visual", desc: "Creamos el aspecto visual de tu proyecto. Verás cómo lucirá todo antes de que escribamos una sola línea de código.", deliverable: "Diseño Interactivo" },
@@ -66,14 +74,35 @@ export const translations: Translations = {
       ],
       delivTitle: "Recibes"
     },
-    contact: { title: "Hazlo Realidad", subtitle: "¿Tienes una idea rondando en tu cabeza? Cuéntanosla.", nameLabel: "Tu Nombre", ideaLabel: "Cuéntanos tu idea", btn: "Solicitar Presupuesto", whatsapp: "Chat Directo" }
+    contact: {
+      title: "Hazlo",
+      subtitle: "Realidad",
+      desc: "¿Tienes una idea rondando en tu cabeza? Cuéntanosla.",
+      nameLabel: "Tu Nombre",
+      subjectLabel: "Asunto",
+      ideaLabel: "Cuéntanos tu idea",
+      btn: "Solicitar Presupuesto",
+      whatsapp: "Chat Directo",
+      card1Title: "Respuesta Rápida",
+      card1Desc: "Te responderemos en menos de 24 horas",
+      card2Title: "Presupuesto Gratis",
+      card2Desc: "Sin compromiso, 100% transparente",
+      card3Title: "Ideas Protegidas",
+      card3Desc: "Tu proyecto es confidencial"
+    }
   },
   en: {
-    hero: { tag: "Software Development Studio", title: "TUKI", subtitle: "Transforming the digital future" },
+    hero: {
+      tag: "Software Development Studio",
+      title: "TUKI",
+      subtitle: "Transforming the digital future",
+      rotatingTexts: ["Your idea on the web", "Your vision, our code", "Innovation in every line"]
+    },
     nav: { home: "Home", about: "About", services: "Services", projects: "Work", process: "Workflow", contact: "Quote" },
 
     about: {
-      title: "About Us",
+      title: "About",
+      subtitle: "Us",
       desc: "At TukiCode, we believe technology is for everyone. We are a team of developers and creatives passionate about bringing ideas to life. Whether you are a dreamer, a creator, or someone with a unique vision, we write the code so you can focus on your dream.",
       missionTitle: "Our Mission",
       missionDesc: "Break down technical barriers. We want anyone, regardless of budget or tech skills, to have access to professional-quality software development to launch their project to the world.",
@@ -106,8 +135,9 @@ export const translations: Translations = {
       techTitle: "Tech Arsenal"
     },
     projects: {
-      title: "Portfolio",
-      subtitle: "Projects we have developed for our clients",
+      title: "",
+      subtitle: "Portfolio",
+      desc: "Projects we have developed for our clients",
       btn: "View GitHub",
       p1: {
         title: "Tuki Salon Assistant",
@@ -123,8 +153,9 @@ export const translations: Translations = {
       }
     },
     process: {
-      title: "Development Workflow",
-      subtitle: "A clear and transparent path from your idea to launch.",
+      title: "Development",
+      subtitle: "Workflow",
+      desc: "A clear and transparent path from your idea to launch.",
       steps: [
         { title: "Listen & Strategy", desc: "We sit down to fully understand your idea. We define exactly what you need to start and map out the plan.", deliverable: "Work Plan" },
         { title: "Visual Design", desc: "We create the look and feel. You'll see exactly how it looks before we write a single line of code.", deliverable: "Interactive Design" },
@@ -133,6 +164,21 @@ export const translations: Translations = {
       ],
       delivTitle: "You Get"
     },
-    contact: { title: "Make it Real", subtitle: "Have an idea in mind? Tell us about it.", nameLabel: "Your Name", ideaLabel: "Tell us your idea", btn: "Request Quote", whatsapp: "Direct Chat" }
+    contact: {
+      title: "Make it",
+      subtitle: "Real",
+      desc: "Have an idea in mind? Tell us about it.",
+      nameLabel: "Your Name",
+      subjectLabel: "Subject",
+      ideaLabel: "Tell us your idea",
+      btn: "Request Quote",
+      whatsapp: "Direct Chat",
+      card1Title: "Quick Response",
+      card1Desc: "We'll respond in less than 24 hours",
+      card2Title: "Free Quote",
+      card2Desc: "No commitment, 100% transparent",
+      card3Title: "Protected Ideas",
+      card3Desc: "Your project is confidential"
+    }
   }
 };

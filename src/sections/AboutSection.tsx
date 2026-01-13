@@ -25,7 +25,12 @@ export default function AboutSection({ t }: AboutSectionProps) {
           variants={fadeInUp}
           className="text-center mb-16 max-w-4xl mx-auto"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">{t.about.title}</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            {t.about.title}{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+              {t.about.subtitle}
+            </span>
+          </h2>
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed font-light">{t.about.desc}</p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">

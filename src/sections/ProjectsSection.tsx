@@ -10,8 +10,13 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
     <section id="proyectos" className="min-h-screen py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">{t.projects.title}</h2>
-          <p className="text-gray-400 text-lg">{t.projects.subtitle}</p>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 text-white">
+            {t.projects.title}{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+              {t.projects.subtitle}
+            </span>
+          </h2>
+          <p className="text-gray-400 text-lg">{t.projects.desc}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Project 1 */}

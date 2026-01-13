@@ -33,10 +33,11 @@ export interface TechStack {
 }
 
 export interface Translation {
-  hero: { tag: string; title: string; subtitle: string };
+  hero: { tag: string; title: string; subtitle: string; rotatingTexts: string[] };
   nav: { home: string; about: string; services: string; projects: string; process: string; contact: string };
   about: {
     title: string;
+    subtitle: string;
     desc: string;
     missionTitle: string;
     missionDesc: string;
@@ -54,6 +55,7 @@ export interface Translation {
   projects: {
     title: string;
     subtitle: string;
+    desc: string;
     btn: string;
     p1: { title: string; desc: string };
     p2: { title: string; desc: string };
@@ -62,16 +64,25 @@ export interface Translation {
   process: {
     title: string;
     subtitle: string;
+    desc: string;
     steps: ProcessStep[];
     delivTitle: string;
   };
   contact: {
     title: string;
     subtitle: string;
+    desc: string;
     nameLabel: string;
+    subjectLabel: string;
     ideaLabel: string;
     btn: string;
     whatsapp: string;
+    card1Title: string;
+    card1Desc: string;
+    card2Title: string;
+    card2Desc: string;
+    card3Title: string;
+    card3Desc: string;
   };
 }
 

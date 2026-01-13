@@ -15,7 +15,7 @@ export default function Dock({ navItems, activeSection, setActiveSection }: Dock
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 2.8, type: "spring", stiffness: 200, damping: 20 }}
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}
         className="bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl px-4 py-3 shadow-[0_0_40px_rgba(0,0,0,0.8)] flex items-end gap-3 pointer-events-auto h-20 items-center"
       >
         {navItems.map((item) => {
