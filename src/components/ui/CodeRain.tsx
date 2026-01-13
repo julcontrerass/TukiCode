@@ -11,7 +11,7 @@ interface CodeDrop {
 export default function CodeRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const drops = useRef<CodeDrop[]>([]);
-  const animationFrameId = useRef<number>();
+  const animationFrameId = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const canvas = canvasRef.current;
