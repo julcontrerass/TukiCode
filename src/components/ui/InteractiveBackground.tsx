@@ -31,7 +31,7 @@ export default function InteractiveBackground() {
 
     // Initialize particles
     const particleCount = 80;
-    particles.current = Array.from<unknown, Particle>({ length: particleCount }, () => ({
+    particles.current = Array.from<unknown, Particle>({ length: particleCount }, (_) => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 0.5,
