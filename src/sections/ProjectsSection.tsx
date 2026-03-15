@@ -6,6 +6,45 @@ interface ProjectsSectionProps {
 }
 
 export default function ProjectsSection({ t }: ProjectsSectionProps) {
+  const projects = [
+    {
+      title: t.projects.p1.title,
+      desc: t.projects.p1.desc,
+      image: '/images/Proyectos/Tuki.png',
+      tags: ['ASP.NET', 'JavaScript', 'MySQL'],
+      href: 'http://tukiasistentedesalon.somee.com/',
+      border: 'hover:border-purple-500/50',
+      tagBg: 'bg-purple-500/20',
+    },
+    {
+      title: t.projects.p2.title,
+      desc: t.projects.p2.desc,
+      image: '/images/Proyectos/joup.png',
+      tags: ['React', 'TypeScript', 'Tailwind'],
+      href: 'https://joup-lab-studio.vercel.app/',
+      border: 'hover:border-blue-500/50',
+      tagBg: 'bg-blue-500/20',
+    },
+    {
+      title: t.projects.p3.title,
+      desc: t.projects.p3.desc,
+      image: '/images/Proyectos/GritoCarnaval1.png',
+      tags: ['HTML', 'CSS', 'JavaScript'],
+      href: 'https://gritodecarnaval.vercel.app/',
+      border: 'hover:border-orange-500/50',
+      tagBg: 'bg-orange-500/20',
+    },
+    {
+      title: t.projects.p4.title,
+      desc: t.projects.p4.desc,
+      image: '/images/Proyectos/skyNext.png',
+      tags: ['Next.js', 'React', 'Tailwind'],
+      href: 'https://skynextarg.com/',
+      border: 'hover:border-emerald-500/50',
+      tagBg: 'bg-emerald-500/20',
+    },
+  ];
+
   return (
     <section id="proyectos" className="min-h-screen py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4">
@@ -18,113 +57,59 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
           </h2>
           <p className="text-gray-400 text-lg">{t.projects.desc}</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Project 1 */}
-          <div className="group relative aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-purple-500/50 transition-all">
-            <picture>
-              <source srcSet="/images/Proyectos/Tuki.png?format=avif" type="image/avif" />
-              <source srcSet="/images/Proyectos/Tuki.png?format=webp" type="image/webp" />
-              <img
-                src="/images/Proyectos/Tuki.png"
-                alt={t.projects.p1.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/60 to-black/80 z-10 group-hover:from-purple-900/70 group-hover:to-black/90 transition-all"></div>
-            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-              <h3 className="text-3xl font-bold mb-2 translate-y-2 group-hover:translate-y-0 transition-transform text-white">
-                {t.projects.p1.title}
-              </h3>
-              <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity mb-4">
-                {t.projects.p1.desc}
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">ASP.NET</span>
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">JavaScript</span>
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">MySQL</span>
-              </div>
-            </div>
-          </div>
 
-          {/* Project 2 */}
-          <a
-            href="https://joup-lab-studio.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-blue-500/50 transition-all cursor-pointer"
-          >
-            <picture>
-              <source srcSet="/images/Proyectos/joup.png?format=avif" type="image/avif" />
-              <source srcSet="/images/Proyectos/joup.png?format=webp" type="image/webp" />
-              <img
-                src="/images/Proyectos/joup.png"
-                alt={t.projects.p2.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 to-black/80 z-10 group-hover:from-blue-900/70 group-hover:to-black/90 transition-all"></div>
-            <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
-              <div className="bg-white/10 backdrop-blur-sm p-2 rounded-full border border-white/20">
-                <ExternalLink className="w-5 h-5 text-white" />
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-              <h3 className="text-3xl font-bold mb-2 translate-y-2 group-hover:translate-y-0 transition-transform text-white">
-                {t.projects.p2.title}
-              </h3>
-              <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity mb-4">
-                {t.projects.p2.desc}
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">React</span>
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">TypeScript</span>
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">Tailwind</span>
-              </div>
-            </div>
-          </a>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map((project, i) => {
+            const baseClass = `group bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 ${project.border} transition-all duration-300`;
 
-          {/* Project 3 */}
-          <a
-            href="https://gritodecarnaval.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative aspect-video bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-orange-500/50 transition-all cursor-pointer"
-          >
-            <picture>
-              <source srcSet="/images/Proyectos/GritoCarnaval.png?format=avif" type="image/avif" />
-              <source srcSet="/images/Proyectos/GritoCarnaval.png?format=webp" type="image/webp" />
-              <img
-                src="/images/Proyectos/GritoCarnaval.png"
-                alt={t.projects.p3.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-900/60 to-black/80 z-10 group-hover:from-orange-900/70 group-hover:to-black/90 transition-all"></div>
-            <div className="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity">
-              <div className="bg-white/10 backdrop-blur-sm p-2 rounded-full border border-white/20">
-                <ExternalLink className="w-5 h-5 text-white" />
+            const inner = (
+              <>
+                <div className="relative aspect-video overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                </div>
+
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-xl font-bold text-white">{project.title}</h3>
+                    {project.href && (
+                      <ExternalLink className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors ml-3 flex-shrink-0 mt-0.5" />
+                    )}
+                  </div>
+                  <p className="text-gray-400 text-sm mb-4">{project.desc}</p>
+                  <div className="flex gap-2 flex-wrap">
+                    {project.tags.map(tag => (
+                      <span key={tag} className={`px-3 py-1 ${project.tagBg} rounded-full text-xs text-white`}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </>
+            );
+
+            return project.href ? (
+              <a
+                key={i}
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${baseClass} block cursor-pointer`}
+              >
+                {inner}
+              </a>
+            ) : (
+              <div key={i} className={baseClass}>
+                {inner}
               </div>
-            </div>
-            <div className="absolute bottom-0 left-0 p-8 z-20 w-full">
-              <h3 className="text-3xl font-bold mb-2 translate-y-2 group-hover:translate-y-0 transition-transform text-white">
-                {t.projects.p3.title}
-              </h3>
-              <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity mb-4">
-                {t.projects.p3.desc}
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">HTML</span>
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">CSS</span>
-                <span className="px-3 py-1 bg-white/10 rounded-full text-xs text-white">JavaScript</span>
-              </div>
-            </div>
-          </a>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -60,6 +60,10 @@ export const translations: Translations = {
       p3: {
         title: "Grito de Carnaval",
         desc: "Landing page dinámica para evento de carnaval. Diseño vibrante con HTML, CSS y JavaScript vanilla."
+      },
+      p4: {
+        title: "SkyNext",
+        desc: "Plataforma web moderna con diseño profesional y experiencia de usuario optimizada para todos los dispositivos."
       }
     },
     process: {
@@ -150,6 +154,10 @@ export const translations: Translations = {
       p3: {
         title: "Grito de Carnaval",
         desc: "Dynamic landing page for carnival event. Vibrant design with HTML, CSS and vanilla JavaScript."
+      },
+      p4: {
+        title: "SkyNext",
+        desc: "Modern web platform with professional design and optimized user experience across all devices."
       }
     },
     process: {
