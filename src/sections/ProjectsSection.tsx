@@ -43,6 +43,15 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
       border: 'hover:border-emerald-500/50',
       tagBg: 'bg-emerald-500/20',
     },
+    {
+      title: t.projects.p5.title,
+      desc: t.projects.p5.desc,
+      image: '/images/Proyectos/deAguirres.png',
+      tags: ['React', 'TypeScript', 'Tailwind'],
+      href: 'https://deaguirres.vercel.app/',
+      border: 'hover:border-rose-500/50',
+      tagBg: 'bg-rose-500/20',
+    },
   ];
 
   return (

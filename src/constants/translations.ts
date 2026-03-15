@@ -64,6 +64,10 @@ export const translations: Translations = {
       p4: {
         title: "SkyNext",
         desc: "Plataforma web moderna con diseño profesional y experiencia de usuario optimizada para todos los dispositivos."
+      },
+      p5: {
+        title: "DE AGUIRRES",
+        desc: "Sitio web para una banda de música bíblica. Diseño con identidad visual propia que refleja su propuesta artística y espiritual."
       }
     },
     process: {
@@ -158,6 +162,10 @@ export const translations: Translations = {
       p4: {
         title: "SkyNext",
         desc: "Modern web platform with professional design and optimized user experience across all devices."
+      },
+      p5: {
+        title: "DE AGUIRRES",
+        desc: "Website for a biblical music band. Custom visual identity design that reflects their artistic and spiritual proposal."
       }
     },
     process: {
