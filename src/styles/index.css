@@ -67,6 +67,19 @@ input:focus, textarea:focus {
   }
 }
 
+/* Hero orb CSS animations — replaces framer-motion infinite loops */
+@keyframes orbA {
+  0%   { transform: translate(-25%, 0%) scale(1); }
+  50%  { transform: translate(125%, 50%) scale(1.2); }
+  100% { transform: translate(-25%, 0%) scale(1); }
+}
+
+@keyframes orbB {
+  0%   { transform: translate(125%, 50%) scale(1.2); }
+  50%  { transform: translate(-25%, 0%) scale(1); }
+  100% { transform: translate(125%, 50%) scale(1.2); }
+}
+
 /* Contact form animations - moved from ContactSection for better performance */
 @keyframes fly {
   0%, 100% {

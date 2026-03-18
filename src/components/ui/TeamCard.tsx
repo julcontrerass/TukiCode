@@ -12,11 +12,12 @@ export default function TeamCard({ member }: TeamCardProps) {
       <div className="w-24 h-24 bg-zinc-900 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-2xl border border-zinc-800 group-hover:scale-110 transition-transform overflow-hidden relative">
         {member.image ? (
           <picture>
-            <source srcSet={`${member.image}?format=avif`} type="image/avif" />
-            <source srcSet={`${member.image}?format=webp`} type="image/webp" />
+            <source srcSet={member.image.replace('.png', '.webp')} type="image/webp" />
             <img
               src={member.image}
               alt={member.name}
+              width={96}
+              height={96}
               className={`w-full h-full object-cover ${isJuan ? 'object-[50%_65%]' : ''}`}
               loading="lazy"
               decoding="async"

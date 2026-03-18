@@ -30,7 +30,7 @@ export default function InteractiveBackground() {
     window.addEventListener('resize', resizeCanvas);
 
     // Initialize particles
-    const particleCount = 80;
+    const particleCount = 50;
     particles.current = Array.from<unknown, Particle>({ length: particleCount }, (_) => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -91,11 +91,11 @@ export default function InteractiveBackground() {
           const dy = otherParticle.y - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 120) {
+          if (distance < 100) {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            const opacity = (1 - distance / 120) * 0.3;
+            const opacity = (1 - distance / 100) * 0.3;
             ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
@@ -128,9 +128,11 @@ export default function InteractiveBackground() {
       animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    // Defer start to avoid blocking initial page load
+    const startTimer = setTimeout(animate, 500);
 
     return () => {
+      clearTimeout(startTimer);
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
       if (animationFrameId.current) {

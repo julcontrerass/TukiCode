@@ -58,6 +58,9 @@ export default function CodeRain() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Set font once per frame, not per drop
+      ctx.font = '14px monospace';
+
       // Draw and update drops
       drops.current.forEach((drop, index) => {
         drop.y += drop.speed;
@@ -72,18 +75,12 @@ export default function CodeRain() {
         }
 
         // Draw characters
-        ctx.font = '14px "Courier New", monospace';
         drop.characters.forEach((char, i) => {
           const y = drop.y - i * 20;
           if (y > 0 && y < canvas.height) {
             const charOpacity = drop.opacity * (1 - i / drop.characters.length);
 
-            // Gradient from purple to pink
-            const gradient = ctx.createLinearGradient(0, y - 10, 0, y + 10);
-            gradient.addColorStop(0, `rgba(168, 85, 247, ${charOpacity})`);
-            gradient.addColorStop(1, `rgba(236, 72, 153, ${charOpacity * 0.7})`);
-
-            ctx.fillStyle = gradient;
+            ctx.fillStyle = `rgba(168, 85, 247, ${charOpacity})`;
             ctx.fillText(char, drop.x, y);
 
             // Add glow to first character
@@ -100,9 +97,11 @@ export default function CodeRain() {
       animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    // Defer start to avoid blocking initial page load
+    const startTimer = setTimeout(animate, 800);
 
     return () => {
+      clearTimeout(startTimer);
       window.removeEventListener('resize', resizeCanvas);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);

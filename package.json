@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "optimize-images": "node scripts/optimize-team-images.mjs",
+    "build": "node scripts/optimize-team-images.mjs && tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx"
   },

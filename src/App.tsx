@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Home, Users, FolderCode, Workflow, Phone, Layout } from 'lucide-react';
 import { Language } from '@/types';
 import { translations } from '@/constants/translations';
 import Navbar from '@/components/layout/Navbar';
 import Dock from '@/components/layout/Dock';
 import HeroSection from '@/sections/HeroSection';
-import AboutSection from '@/sections/AboutSection';
-import ServicesSection from '@/sections/ServicesSection';
-import ProjectsSection from '@/sections/ProjectsSection';
-import ProcessSection from '@/sections/ProcessSection';
-import ContactSection from '@/sections/ContactSection';
+
+const AboutSection = lazy(() => import('@/sections/AboutSection'));
+const ServicesSection = lazy(() => import('@/sections/ServicesSection'));
+const ProjectsSection = lazy(() => import('@/sections/ProjectsSection'));
+const ProcessSection = lazy(() => import('@/sections/ProcessSection'));
+const ContactSection = lazy(() => import('@/sections/ContactSection'));
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('inicio');
@@ -70,11 +71,13 @@ export default function App() {
       <Dock navItems={navItems} activeSection={activeSection} setActiveSection={setActiveSection} />
 
       <HeroSection t={t} />
-      <AboutSection t={t} />
-      <ServicesSection t={t} />
-      <ProjectsSection t={t} />
-      <ProcessSection t={t} />
-      <ContactSection t={t} />
+      <Suspense fallback={null}>
+        <AboutSection t={t} />
+        <ServicesSection t={t} />
+        <ProjectsSection t={t} />
+        <ProcessSection t={t} />
+        <ContactSection t={t} />
+      </Suspense>
     </main>
   );
 }

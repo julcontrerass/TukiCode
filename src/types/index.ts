@@ -75,8 +75,12 @@ export interface Translation {
     subtitle: string;
     desc: string;
     nameLabel: string;
+    namePlaceholder: string;
+    emailPlaceholder: string;
     subjectLabel: string;
+    subjectPlaceholder: string;
     ideaLabel: string;
+    messagePlaceholder: string;
     btn: string;
     whatsapp: string;
     card1Title: string;

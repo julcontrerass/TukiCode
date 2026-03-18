@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react';
 import { Translation } from '@/types';
+import FogReveal from '@/components/ui/FogReveal';
 
 interface ProjectsSectionProps {
   t: Translation;
@@ -57,7 +58,7 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
   return (
     <section id="proyectos" className="min-h-screen py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
+        <FogReveal className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-4 text-white">
             {t.projects.title}{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
@@ -65,7 +66,7 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
             </span>
           </h2>
           <p className="text-gray-400 text-lg">{t.projects.desc}</p>
-        </div>
+        </FogReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, i) => {
@@ -103,20 +104,23 @@ export default function ProjectsSection({ t }: ProjectsSectionProps) {
               </>
             );
 
-            return project.href ? (
-              <a
-                key={i}
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${baseClass} block cursor-pointer`}
-              >
-                {inner}
-              </a>
-            ) : (
-              <div key={i} className={baseClass}>
-                {inner}
-              </div>
+            return (
+              <FogReveal key={i} delay={i % 2 === 0 ? 0 : 120}>
+                {project.href ? (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${baseClass} block cursor-pointer`}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div className={baseClass}>
+                    {inner}
+                  </div>
+                )}
+              </FogReveal>
             );
           })}
         </div>
