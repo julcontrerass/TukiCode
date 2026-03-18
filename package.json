@@ -10,6 +10,7 @@
     "lint": "eslint src --ext ts,tsx"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@fontsource/geist-mono": "^5.0.0",
     "@fontsource/geist-sans": "^5.0.0",
     "clsx": "^2.1.1",
