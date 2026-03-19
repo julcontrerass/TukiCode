@@ -20,15 +20,6 @@ export default function CodeRain() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size — clientWidth avoids forced layout recalculation
-    const resizeCanvas = () => {
-      canvas.width = document.documentElement.clientWidth;
-      canvas.height = document.documentElement.clientHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas, { passive: true });
-
-    // Code characters (programming symbols)
     const codeSymbols = [
       '{', '}', '[', ']', '(', ')', '<', '>', '/',
       '=', '+', '-', '*', '&', '|', '^', '~',
@@ -36,19 +27,13 @@ export default function CodeRain() {
       '0', '1', 'true', 'false', 'null'
     ];
 
-    // Initialize drops
-    const dropCount = 25;
-    const columnWidth = canvas.width / dropCount;
+    let columnWidth = 0;
 
-    drops.current = Array.from<unknown, CodeDrop>({ length: dropCount }, (_, i) => ({
-      x: i * columnWidth + columnWidth / 2,
-      y: Math.random() * -canvas.height,
-      speed: Math.random() * 2 + 1,
-      characters: Array.from<unknown, string>({ length: 8 }, (_) =>
-        codeSymbols[Math.floor(Math.random() * codeSymbols.length)]
-      ),
-      opacity: Math.random() * 0.3 + 0.1
-    }));
+    const resizeCanvas = () => {
+      canvas.width = document.documentElement.clientWidth;
+      canvas.height = document.documentElement.clientHeight;
+    };
+    window.addEventListener('resize', resizeCanvas, { passive: true });
 
     // Animation loop
     const animate = () => {
@@ -97,8 +82,24 @@ export default function CodeRain() {
       animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    // Defer start to avoid blocking initial page load
-    const startTimer = setTimeout(animate, 800);
+    // Defer ALL initialization to after first paint — avoids forced reflow in critical path
+    const startTimer = setTimeout(() => {
+      resizeCanvas();
+      const w = canvas.width || document.documentElement.clientWidth;
+      const h = canvas.height || document.documentElement.clientHeight;
+      const dropCount = 25;
+      columnWidth = w / dropCount;
+      drops.current = Array.from<unknown, CodeDrop>({ length: dropCount }, (_, i) => ({
+        x: i * columnWidth + columnWidth / 2,
+        y: Math.random() * -h,
+        speed: Math.random() * 2 + 1,
+        characters: Array.from<unknown, string>({ length: 8 }, (_) =>
+          codeSymbols[Math.floor(Math.random() * codeSymbols.length)]
+        ),
+        opacity: Math.random() * 0.3 + 0.1,
+      }));
+      animate();
+    }, 800);
 
     return () => {
       clearTimeout(startTimer);

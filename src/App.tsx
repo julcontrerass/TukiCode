@@ -44,8 +44,16 @@ export default function App() {
     // Observe initial sections (HeroSection is already in DOM)
     observeNew();
 
-    // Watch for lazy-loaded sections added to the DOM
-    const mo = new MutationObserver(observeNew);
+    // Watch for lazy-loaded sections — check mutation records first to avoid
+    // running querySelectorAll on every React DOM update
+    const mo = new MutationObserver((records) => {
+      const hasNewSection = records.some((r) =>
+        Array.from(r.addedNodes).some(
+          (n) => n instanceof Element && (n.tagName === 'SECTION' || n.querySelector('section[id]'))
+        )
+      );
+      if (hasNewSection) observeNew();
+    });
     mo.observe(document.body, { childList: true, subtree: true });
 
     return () => {

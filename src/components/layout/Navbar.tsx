@@ -11,8 +11,9 @@ export default function Navbar({ lang, setLang }: NavbarProps) {
     <nav className="fixed top-0 w-full z-40 bg-transparent pt-6 pointer-events-none">
       <div className="flex justify-center items-center max-w-7xl mx-auto px-6 relative">
         <div className="navbar-entry bg-black/40 backdrop-blur-md px-6 py-2 rounded-full border border-white/10 pointer-events-auto shadow-lg">
-          <span className="text-xl md:text-2xl font-black tracking-widest bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">
-            TUKICODE
+          <span className="text-xl md:text-2xl font-black tracking-widest">
+            <span className="bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent">TUKI</span>
+            <span className="text-purple-500">CODE</span>
           </span>
         </div>
         <div className="navbar-entry pointer-events-auto absolute right-0">

@@ -21,29 +21,17 @@ export default function InteractiveBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size — use clientWidth to avoid forced layout
     const resizeCanvas = () => {
       canvas.width = document.documentElement.clientWidth;
       canvas.height = document.documentElement.clientHeight;
     };
-    resizeCanvas();
     window.addEventListener('resize', resizeCanvas, { passive: true });
-
-    // Initialize particles
-    const particleCount = 50;
-    particles.current = Array.from<unknown, Particle>({ length: particleCount }, (_) => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      radius: Math.random() * 2 + 1,
-    }));
 
     // Mouse move handler
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     // Animation loop
     const animate = () => {
@@ -53,8 +41,22 @@ export default function InteractiveBackground() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      const mx = mousePos.current.x;
+      const my = mousePos.current.y;
+
       // Update and draw particles
       particles.current.forEach((particle, i) => {
+        // Mouse attraction — pull particles toward cursor
+        const dx = mx - particle.x;
+        const dy = my - particle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 250 && distance > 1) {
+          const force = (250 - distance) / 250;
+          particle.vx += (dx / distance) * force * 0.35;
+          particle.vy += (dy / distance) * force * 0.35;
+        }
+
         // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
@@ -63,73 +65,69 @@ export default function InteractiveBackground() {
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
 
-        // Mouse interaction
-        const dx = mousePos.current.x - particle.x;
-        const dy = mousePos.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 150) {
-          const angle = Math.atan2(dy, dx);
-          const force = (150 - distance) / 150;
-          particle.vx -= Math.cos(angle) * force * 0.2;
-          particle.vy -= Math.sin(angle) * force * 0.2;
-        }
-
-        // Apply velocity damping
-        particle.vx *= 0.99;
-        particle.vy *= 0.99;
+        // Velocity damping — keep movement smooth
+        particle.vx *= 0.92;
+        particle.vy *= 0.92;
 
         // Draw particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(168, 85, 247, ${0.6})`;
+        ctx.fillStyle = 'rgba(168, 85, 247, 0.7)';
         ctx.fill();
 
-        // Draw connections
-        particles.current.slice(i + 1).forEach((otherParticle) => {
-          const dx = otherParticle.x - particle.x;
-          const dy = otherParticle.y - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+        // Draw connections between particles
+        particles.current.slice(i + 1).forEach((other) => {
+          const ddx = other.x - particle.x;
+          const ddy = other.y - particle.y;
+          const dist = Math.sqrt(ddx * ddx + ddy * ddy);
 
-          if (distance < 100) {
+          if (dist < 120) {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            const opacity = (1 - distance / 100) * 0.3;
-            ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
+            ctx.lineTo(other.x, other.y);
+            ctx.strokeStyle = `rgba(168, 85, 247, ${(1 - dist / 120) * 0.35})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         });
 
-        // Draw connection to mouse
-        const mouseDistance = Math.sqrt(
-          Math.pow(mousePos.current.x - particle.x, 2) +
-          Math.pow(mousePos.current.y - particle.y, 2)
-        );
-
-        if (mouseDistance < 200) {
+        // Draw connection to mouse cursor
+        if (distance < 180) {
           ctx.beginPath();
           ctx.moveTo(particle.x, particle.y);
-          ctx.lineTo(mousePos.current.x, mousePos.current.y);
-          const opacity = (1 - mouseDistance / 200) * 0.5;
-          ctx.strokeStyle = `rgba(236, 72, 153, ${opacity})`;
+          ctx.lineTo(mx, my);
+          ctx.strokeStyle = `rgba(236, 72, 153, ${(1 - distance / 180) * 0.6})`;
           ctx.lineWidth = 1;
           ctx.stroke();
-
-          // Draw glow at mouse
-          ctx.beginPath();
-          ctx.arc(mousePos.current.x, mousePos.current.y, 3, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(236, 72, 153, 0.5)';
-          ctx.fill();
         }
       });
+
+      // Draw glow dot at mouse position
+      if (mx > 0 || my > 0) {
+        ctx.beginPath();
+        ctx.arc(mx, my, 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(236, 72, 153, 0.6)';
+        ctx.fill();
+      }
 
       animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    // Defer start to avoid blocking initial page load
-    const startTimer = setTimeout(animate, 500);
+    // Defer ALL initialization to after first paint — avoids forced reflow in critical path
+    const startTimer = setTimeout(() => {
+      resizeCanvas();
+      const w = canvas.width || document.documentElement.clientWidth;
+      const h = canvas.height || document.documentElement.clientHeight;
+      const particleCount = 100;
+      particles.current = Array.from<unknown, Particle>({ length: particleCount }, (_) => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: Math.random() * 2 + 1,
+      }));
+      animate();
+    }, 500);
 
     return () => {
       clearTimeout(startTimer);
