@@ -43,13 +43,11 @@ export default defineConfig({
       },
     },
 
-    // Code splitting
+    // Code splitting — only pin react/react-dom together, let Vite auto-split the rest
     rollupOptions: {
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom'],
-          'vendor-animation': ['framer-motion'],
-          'vendor-icons': ['lucide-react'],
         },
       },
     },

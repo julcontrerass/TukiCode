@@ -19,30 +19,38 @@ export default function App() {
   const t = translations[lang];
 
   useEffect(() => {
+    const observed = new Set<Element>();
 
-    // Optimize Intersection Observer with rootMargin and lower threshold
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Use requestAnimationFrame to batch DOM updates
-            requestAnimationFrame(() => {
-              setActiveSection(entry.target.id);
-            });
+            requestAnimationFrame(() => setActiveSection(entry.target.id));
           }
         });
       },
-      {
-        threshold: 0.3,
-        rootMargin: '0px 0px -20% 0px' // Trigger slightly before entering viewport
-      }
+      { threshold: 0.3, rootMargin: '0px 0px -20% 0px' }
     );
 
-    const sections = document.querySelectorAll("section");
-    sections.forEach((section) => observer.observe(section));
+    const observeNew = () => {
+      document.querySelectorAll('section[id]').forEach((section) => {
+        if (!observed.has(section)) {
+          observed.add(section);
+          io.observe(section);
+        }
+      });
+    };
+
+    // Observe initial sections (HeroSection is already in DOM)
+    observeNew();
+
+    // Watch for lazy-loaded sections added to the DOM
+    const mo = new MutationObserver(observeNew);
+    mo.observe(document.body, { childList: true, subtree: true });
+
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
-      observer.disconnect();
+      io.disconnect();
+      mo.disconnect();
     };
   }, []);
 
